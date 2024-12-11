@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "flask-todo-api"
+version = "0.1.0"
+description = "A Flask Todo API"
+authors = ["jjhelguero"]
+
+[tool.poetry.dependencies]
+python = "^3.13"
+flask = "^3.0.0"
+flask-smorest = "^0.42.3"
+marshmallow = "^3.20.1"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
+pytest-cov = "^4.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-v --cov=app"
