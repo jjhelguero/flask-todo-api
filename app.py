@@ -110,3 +110,6 @@ class TodoTask(MethodView):
         abort(404, f'Task with ID {task_id} not found.')
 
 api.register_blueprint(todo)
+
+if __name__ == '__main__':
+    server.run()
