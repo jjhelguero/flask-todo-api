@@ -3,15 +3,24 @@ import uuid
 from typing import List, Optional, Dict, Any
 
 class TodoRepository:
+    _instance = None
+
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super(TodoRepository, cls).__new__(cls)
+            cls._instance.tasks = None
+        return cls._instance
+
     def __init__(self):
-        self.tasks = [
-            {
-                'id': uuid.UUID('a463a6fe-2f67-4925-9e00-12ee154e58de'),
-                'created': datetime.now(timezone.utc),
-                'completed': False,
-                'task': 'Create Flask API tutorial'
-            }
-        ]
+        if self.tasks is None:
+            self.tasks = [
+                {
+                    'id': uuid.UUID('a463a6fe-2f67-4925-9e00-12ee154e58de'),
+                    'created': datetime.now(timezone.utc),
+                    'completed': False,
+                    'task': 'Create Flask API tutorial'
+                }
+            ]
 
     def get_all(self) -> List[Dict[str, Any]]:
         return self.tasks
@@ -44,3 +53,7 @@ class TodoRepository:
                 self.tasks.pop(index)
                 return True
         return False
+
+    def delete_all(self):
+        """Delete all tasks from the database"""
+        self.tasks = []
